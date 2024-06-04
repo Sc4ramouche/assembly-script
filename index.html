@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="module">
+        WebAssembly.instantiateStreaming(fetch('./build/release.wasm'), {env: {}, index: {log: console.log}}).then(
+            ({instance}) => {
+                const {memory, readMemory} = instance.exports;
+                const memoryArray = new Uint8Array(memory.buffer)
+                console.log(memoryArray[0], memoryArray[1], memoryArray[2], memoryArray[3])
+                memoryArray[2] = 100
+                console.log(memoryArray[2])
+                console.log(readMemory(2))
+                // document.write(instance.exports.add_one(41))
+                const image = new Uint8Array(/* ... */)
+            }
+        )
+        //import {add_one, fizzbuzz} from "./build/release.js";
+        //document.body.innerText = fizzbuzz(42);
+    </script>
+</head>
+
+<body></body>
+
+</html>
